@@ -2,6 +2,7 @@
 #define BASESTATE_H
 
 #include "../Application.h"
+#include "../Display.h"
 
 class Application;
 
@@ -11,8 +12,8 @@ public:
     Basestate(Application& application);
 
     virtual void input() = 0;
-    virtual void update() = 0;
-    virtual void draw() = 0;
+    virtual void update(Display& dis) = 0;
+    virtual void draw(Display& dis) = 0;
 
     virtual ~Basestate() = default;
 protected:

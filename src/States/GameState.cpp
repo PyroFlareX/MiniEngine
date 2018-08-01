@@ -18,12 +18,12 @@ void GameState::input()
 
 }
 
-void GameState::update()
+void GameState::update(Display& dis)
 {
-
+    m_render.Update(dis);
 }
 
-void GameState::draw()
+void GameState::draw(Display& dis)
 {
-
+    m_render.Draw(dis);
 }

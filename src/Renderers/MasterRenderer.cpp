@@ -12,5 +12,5 @@ void MasterRenderer::Update(Display& dis)
 
 void MasterRenderer::Draw(Display& dis)
 {
-
+    //glDrawElements(GL_TRIANGLES, , GL_UNSIGNED_INT, nullptr)
 }

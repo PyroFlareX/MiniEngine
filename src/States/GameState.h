@@ -3,6 +3,7 @@
 
 #include "Basestate.h"
 #include "../Application.h"
+#include "../Renderers/MasterRenderer.h"
 
 class Application;
 class Basestate;
@@ -13,13 +14,14 @@ public:
     GameState(Application& application);
 
     void input() override;
-    void update() override;
-    void draw() override;
+    void update(Display& dis) override;
+    void draw(Display& dis) override;
 
     ~GameState();
 protected:
 
 private:
+    MasterRenderer m_render;
 };
 
 #endif // GAMESTATE_H

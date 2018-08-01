@@ -29,7 +29,7 @@ public:
 protected:
 
 private:
-    //Basestate& currentState();
+    Basestate& currentState();
 
     std::vector<std::unique_ptr<Basestate>> m_states;
 

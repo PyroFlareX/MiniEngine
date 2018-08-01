@@ -18,10 +18,14 @@ void Application::RunLoop()
     {
         m_render.Clear(display);
 
+        //Check and use input
+        currentState().input();
+
         //Drawing Code
+        currentState().draw(display);
 
-
-        m_render.Update(display);
+        //Swap the buffers
+        currentState().update(display);
 
         display.CheckforClose();
     }
@@ -32,9 +36,9 @@ void Application::popState()
 {
     m_states.pop_back();
 }
-/*
+
 Basestate& Application::currentState()
 {
     return *m_states.back();
 }
-*/
+
