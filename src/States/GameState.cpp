@@ -3,9 +3,17 @@
 #include "../Application.h"
 #include "Basestate.h"
 
-GameState::GameState(Application& app) : Basestate(app)
+
+
+GameState::GameState(Application& app)
+: Basestate(app)
 {
-    //ctor
+    /*m_mesh.vertexPositions = {0.5, 0.5,
+                               -0.5, 0.5,
+                               -0.5, -0.5,
+                               -0.5, -0.5,
+                               0.5, -0.5,
+                               0.5, 0.5};*/
 }
 
 GameState::~GameState()
