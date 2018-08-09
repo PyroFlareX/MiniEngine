@@ -1,72 +1,61 @@
 #include "Model.h"
 
-Model::Model(const std::vector<GLfloat>& vertexPositions,
-             const std::vector<GLfloat>& textureCoordinates,
-             const std::vector<GLuint>&  indices)
-    :   m_indicesCount  (indices.size())
+Model::Model()
 {
-    glGenVertexArrays(1, &m_vao);
-    glBindVertexArray(m_vao);
-
-    addVBO(3, vertexPositions);
-    addVBO(2, textureCoordinates);
-    addEBO(indices);
-
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    //vboCount = 0;
 }
 
 Model::~Model()
 {
-    glDeleteVertexArrays(1, &m_vao);
-    glDeleteBuffers(m_buffers.size(), m_buffers.data());
+    deleteData();
 }
 
-void Model::bind() const
+void Model::addVBO(int dimensions, std::vector<GLfloat> data, unsigned int vboIndex)
 {
-    glBindVertexArray(m_vao);
-}
-
-void Model::unbind() const
-{
-    glBindVertexArray(0);
-}
-
-GLuint Model::getIndicesCount() const
-{
-    return m_indicesCount;
-}
-
-void Model::addVBO(int dim, const std::vector<GLfloat>& data)
-{
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
+    vboCount = vboIndex;
+    glGenBuffers(/*dimensions*/1 , &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER,
-                 data.size() * sizeof(data[0]),
-                 data.data(),
-                 GL_STATIC_DRAW);
-    glVertexAttribPointer(m_vboCount,
-                          dim,
-                          GL_FLOAT,
-                          GL_FALSE,
-                          0,
-                          (GLvoid*) 0);
+    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(GLfloat), data.data(), GL_STATIC_DRAW);
 
-    glEnableVertexAttribArray(m_vboCount++);
+    glVertexAttribPointer(vboCount, dimensions, GL_FLOAT, GL_FALSE, 0, (GLvoid*) 0);
+
+    glEnableVertexAttribArray(vboCount++);
 
     m_buffers.push_back(vbo);
+    //std::cout << "Added" << std::endl;
 }
 
-
-void Model::addEBO(const std::vector<GLuint>& indices)
+void Model::genVAO()
 {
-    GLuint ebo;
-    glGenBuffers(1, &ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-                 indices.size() * sizeof (indices[0]),
-                 indices.data(),
-                 GL_STATIC_DRAW);
-    m_buffers.push_back(ebo);
+    if (m_renderinfo.vao != 0)
+    {
+        deleteData();
+        //std::cout << "Delete2" << std::endl;
+    }
+
+    glGenVertexArrays(1, &m_renderinfo.vao);
+    glBindVertexArray(m_renderinfo.vao);
+    //std::cout << "Genned" << std::endl;
+}
+
+void Model::bindVAO()
+{
+    glBindVertexArray(m_renderinfo.vao);
+}
+
+void Model::deleteData()
+{
+    glDeleteVertexArrays(1, &m_renderinfo.vao);
+    glDeleteBuffers(m_buffers.size(), m_buffers.data());
+
+    m_buffers.clear();
+    //std::cout << "Delete" << std::endl;
+}
+
+void Model::addData(std::vector<GLfloat> data, unsigned int index)
+{
+    //std::cout << "Data" << std::endl;
+    genVAO();
+
+    addVBO(2, data, index);
 }

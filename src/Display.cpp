@@ -1,4 +1,5 @@
 #include "Display.h"
+#include <GL/glew.h>
 
 Display::Display()
 {
@@ -7,8 +8,8 @@ Display::Display()
     settings.depthBits = 24;
     settings.stencilBits = 8;
     settings.antialiasingLevel = 0;
-    settings.majorVersion = 3;
-    settings.minorVersion = 3;
+    settings.majorVersion = 4;
+    settings.minorVersion = 2;
 
     sf::VideoMode vmode;
     vmode.height = 600;

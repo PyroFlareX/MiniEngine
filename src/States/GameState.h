@@ -4,6 +4,7 @@
 #include "Basestate.h"
 #include "../Application.h"
 #include "../Renderers/MasterRenderer.h"
+#include "../Model.h"
 
 class Application;
 class Basestate;
@@ -22,6 +23,7 @@ protected:
 
 private:
     MasterRenderer m_render;
+
 };
 
 #endif // GAMESTATE_H

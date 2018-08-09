@@ -2,31 +2,32 @@
 #define MODEL_H
 
 #include <GL/glew.h>
-
 #include <vector>
+#include <iostream>
+
+#include "Mesh.h"
+#include "Renderers/RenderInfo.h"
 
 class Model
 {
-public:
-    Model(const std::vector<GLfloat>& vertexPositions,
-          const std::vector<GLfloat>& textureCoordinates,
-          const std::vector<GLuint>&  indices);
-    ~Model();
+    public:
+        Model();
 
-    void bind() const;
-    void unbind() const;
+        void genVAO();
+        void bindVAO();
 
-    GLuint getIndicesCount() const;
+        void addData(std::vector<GLfloat> data, unsigned int index);
 
-private:
-    void addVBO(int dim, const std::vector<GLfloat>& data);
-    void addEBO(const std::vector<GLuint>& indices);
+        void addVBO(int dimensions, std::vector<GLfloat> data, unsigned int vboIndex);
 
-    std::vector<GLuint> m_buffers;
+        void deleteData();
 
-    GLuint m_vao = 0;
-    GLuint m_vboCount = 0;
-    GLuint m_indicesCount = 0;
+        ~Model();
+    private:
+        std::vector<GLuint> m_buffers;
+        RenderInfo m_renderinfo;
+        GLuint vbo;
+        GLuint vboCount;
 };
 
 #endif // MODEL_H

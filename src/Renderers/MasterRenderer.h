@@ -2,19 +2,24 @@
 #define MASTERRENDERER_H
 
 #include "../Display.h"
+#include "../Model.h"
 
 class MasterRenderer
 {
-public:
-    void Clear(Display& dis);
+    public:
+        MasterRenderer();
 
-    void Update(Display& dis);
+        void Clear(Display& dis);
 
-    void Draw(Display& dis);
+        void Update(Display& dis);
 
-protected:
+        void Draw(Display& dis);
 
-private:
+    protected:
+
+    private:
+        Model m_model;
+        //Mesh m_mesh;
 };
 
 #endif // MASTERRENDERER_H
